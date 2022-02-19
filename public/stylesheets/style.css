@@ -1,0 +1,141 @@
+:root{
+  --game-width: 80vw;
+
+  /*piano vars*/
+  --num-keys: 7;
+  --border-width: 1px;
+
+  --key-width: calc( 
+      (var(--game-width) / var(--num-keys)) - 
+      (var(--border-width) * 2));
+
+  
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: antiquewhite;
+}
+
+h1{
+  font-size: 70px;
+  letter-spacing: 10px;
+  margin: 10px;
+}
+
+#game{  
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: var(--game-width);
+}
+
+/*
+### Grid CSS
+*/
+#tiles{
+  margin-bottom: 40px;
+}
+
+.row{
+  display: flex;
+  justify-content: space-around;
+}
+
+.tile{
+  border: 1px solid lightslategray;
+  margin: 2px;
+  flex: 1 0 auto;
+
+  height: auto;
+}
+
+.tile:before{
+  content: '';
+  float: left;
+  padding-top: 100%;
+}
+
+.note{
+  max-width: 100px;
+  max-height: 100px;
+}
+
+/*
+### Piano CSS
+*/
+#piano{
+  flex: 1;
+  width: var(--kb-width);
+  height: 200px;
+  position: relative;
+}
+
+.key{
+  position: relative;
+  float: left;
+}
+
+.white{
+  background-color: white;
+  border: var(--border-width) solid black; 
+
+  height: 200px;
+  width: var(--key-width);
+  z-index: 1;
+}
+
+
+.black{
+  background-color: black;
+  border: var(--border-width) solid white; 
+  border-top: none;
+  border-bottom: none;
+
+  height: 100px;
+  width: var(--key-width);
+
+  z-index: 2;
+}
+
+.a, .b, .d, .e, .g, .black{
+  margin-left: calc((-1 * (var(--key-width) / 2)) - var(--border-width));
+}
+
+.c{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.b{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/*
+### Clickable Element CSS
+*/
+#go{
+  margin-top: 20px;
+  right: 20px;
+  bottom: 20px;
+}
+
+.clickable{
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+ 
+  cursor: pointer;
+  user-select: none;
+
+
+  text-align: center;
+  padding: 10px;
+
+  font-weight: bold;
+  background-color: orange;
+}

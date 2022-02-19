@@ -1,0 +1,72 @@
+extends layout
+
+block game
+  #game
+    h1= title
+    #tiles
+      .row
+        .tile
+          img.note(src="images/b.png")
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+      .row
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+
+      .row
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+
+      .row
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+
+      .row
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+
+      .row
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+        .tile
+    
+    #piano 
+      .key.white.c(onclick="addNote(\'c\')")
+      .key.black(onclick="addNote(\'c#')")
+      .key.white.d(onclick="addNote(\'d\')")
+      .key.black(onclick="addNote(\'d#')")
+      .key.white.e(onclick="addNote(\'e\')")
+      .key.white.f(onclick="addNote(\'f\')")
+      .key.black(onclick="addNote(\'f#')")
+      .key.white.g(onclick="addNote(\'g\')")
+      .key.black(onclick="addNote(\'g#')")
+      .key.white.a(onclick="addNote(\'a\')")
+      .key.black(onclick="addNote(\'a#')")
+      .key.white.b(onclick="addNote(\'b\')")
+    #go.clickable(onclick="go()")
+      p= 'ENTER'
+    #del.clickable(onclick="del()") 
+      p= 'DEL'
+
