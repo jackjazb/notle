@@ -9,7 +9,9 @@
       (var(--game-width) / var(--num-keys)) - 
       (var(--border-width) * 2));
 
-  
+  /*tile vars*/
+  --tile-margin: 2px;
+  --tile-width: calc((var(--game-width) / 6) - (4* var(--tile-margin)));
 }
 
 body {
@@ -47,9 +49,9 @@ h1{
 
 .tile{
   border: 1px solid lightslategray;
-  margin: 2px;
+  margin: var(--tile-margin);
   flex: 1 0 auto;
-
+  max-width: var(--tile-width);
   height: auto;
 }
 
@@ -60,8 +62,8 @@ h1{
 }
 
 .note{
-  max-width: 100px;
-  max-height: 100px;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /*
