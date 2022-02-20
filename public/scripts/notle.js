@@ -61,7 +61,7 @@ $(function(){
 
 //note input functions
 function addNote(note){
-    console.log(currentRow);
+    playSequence([note]);
     if(input.length < 6){
         input.push(note);
         addImage(note, input.length - 1);
@@ -105,11 +105,11 @@ function go(){
 
 function playSequence(notes){
     //create a synth and connect it to the main output (your speakers)
-    const synth = new Tone.Synth().toDestination();
+    const chorus = new Tone.Chorus(4, 2.5, 0.5).toDestination().start();
+    const synth = new Tone.PolySynth().connect(chorus);
     let now = Tone.now();
 
     for(i = 0; i < notes.length; i++){
-        //play a middle 'C' for the duration of an 8th note
         synth.triggerAttackRelease(noteToneMap.get(notes[i]), "8n", now + (0.3*i));
     }
 }
