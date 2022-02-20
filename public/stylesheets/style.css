@@ -61,6 +61,18 @@ h1{
   padding-top: 100%;
 }
 
+.correct{
+  background-color: orange;
+}
+
+.almost{
+  background-color: lightblue;
+}
+
+.wrong{
+  background-color: grey;
+}
+
 .note{
   max-width: 100%;
   max-height: 100%;

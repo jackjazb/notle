@@ -1,4 +1,4 @@
-let solution = ['f#','f#','f#','f#','f#','f#','f#','f#'];
+let solution = ['f#','f#','f#','c','f#','b','f#','f#'];
 let guesses = [];
 let input = [];
 let currentRow;
@@ -41,7 +41,7 @@ function addNote(note){
 
 function del(){
     input.pop();
-    
+
     currentTile.empty();
     currentTile = $( currentRow.children()[input.length - 1] );
 
@@ -55,14 +55,26 @@ function go(){
     //check each letter
     let correct = true;
     for(i = 0; i < 6; i++){
-        if(input[i] != solution[i]){
+        checkedTile = $( currentRow.children()[i] );
+        //tile coloring
+        if(input[i] == solution[i]){
+            checkedTile.addClass('correct');
+        }
+        else if(solution.includes(input[i])){
+            checkedTile.addClass('almost');
+            correct = false;
+        }
+        else{
+            checkedTile.addClass('wrong');
             correct = false;
         }
     }
+    input = [];
     if(correct){
         console.log('hurray!');
     }
     else{
+        currentRow = currentRow.next();
         console.log('oh no.');
     }
 }
