@@ -1,5 +1,6 @@
 let solution = ['f#','f#','f#','c','f#','b','f#','f#'];
 let guesses = [];
+
 let input = [];
 let currentRow;
 let currentTile;
@@ -20,63 +21,95 @@ let imgPathMap = new Map([
 ]);
 
 
-
 $(function(){
-    //document ready processes - write this so only the guess list needs to be stored as a cookie
-    let rowIndex = guesses.length;
-    currentRow =$( $('#tiles').children()[rowIndex] ); 
+    //document ready processes - recreates the board from previous guesses
+    gsCookie = Cookies.get('guesses');
+
+    //make sure the cookie exists before proceeding
+    if(gsCookie == undefined){
+        Cookies.set('guesses', JSON.stringify([]));
+        gsCookie = Cookies.get('guesses');
+    }
+    guesses = JSON.parse(gsCookie);
+    let rows = $('#tiles')[0].children
+
+    currentRow = rows[0]; 
+
+    for(ai = 0; ai < guesses.length; ai++){
+        console.log(guesses);
+        guesses[ai].forEach(function(note, pos){
+            addImage(note, pos);
+        });
+        check(guesses[ai]);
+    }
+    currentTile = null;
+
 });
 
+//note input functions
 function addNote(note){
+    console.log(currentRow);
     if(input.length < 6){
         input.push(note);
+        addImage(note, input.length - 1);
+    }   
+}
 
-        //fetch the note imge path from the map & append a .note image
-        let imgPath = imgPathMap.get(note);
-        currentTile = $( currentRow.children()[input.length - 1] );
-        currentTile.append('<img class="note" src="' + imgPath +'">');
-    }
-    console.log(input);
+//adds a note image to the current row at a given index
+function addImage(note, index){
+    //fetch the note imge path from the map & append a .note image
+    let imgPath = imgPathMap.get(note);
+    currentTile = currentRow.children[index];
+    $(currentTile).append('<img class="note" src="' + imgPath +'">');
 }
 
 function del(){
     input.pop();
 
-    currentTile.empty();
-    currentTile = $( currentRow.children()[input.length - 1] );
-
-    console.log(input);
+    //clear last note image
+    $(currentTile).empty();
+    currentTile = currentRow.children[input.length - 1];
 }
 
+//run when the player makes a guess
 function go(){
-    //save the user's guess
+    //adds the guess to today's guesses and updates cookie
     guesses.push(input);
+    Cookies.set('guesses', JSON.stringify(guesses));
+    if(check(input, currentRow)){
+        console.log('yay!');
+    }
+    else{
+        console.log('oh no.');
+    }  
+    input = [];
+    currentTile = null;
+}
 
-    //check each letter
-    let correct = true;
-    for(i = 0; i < 6; i++){
-        checkedTile = $( currentRow.children()[i] );
-        //tile coloring
-        if(input[i] == solution[i]){
-            checkedTile.addClass('correct');
+//checks a sequence of notes and colours the current row
+function check(notes){  
+    correct = true;
+    for(i = 0; i < notes.length; i++){
+        checkedTile = currentRow.children[i];
+
+        if(notes[i] == solution[i]){
+            $(checkedTile).addClass('correct');
         }
-        else if(solution.includes(input[i])){
-            checkedTile.addClass('almost');
+        else if(solution.includes(notes[i])){
+            $(checkedTile).addClass('almost');
             correct = false;
         }
         else{
-            checkedTile.addClass('wrong');
+            $(checkedTile).addClass('wrong');
             correct = false;
         }
     }
-    input = [];
+
     if(correct){
-        console.log('hurray!');
+        return true;
     }
     else{
-        currentRow = currentRow.next();
-        console.log('oh no.');
+        currentRow = $(currentRow).next()[0];
+        return false;
     }
 }
-
-
