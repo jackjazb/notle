@@ -3,30 +3,33 @@
 
   /*piano vars*/
   --num-keys: 7;
-  --border-width: 1px;
+  --border-width: 2px;
 
   --key-width: calc( 
       (var(--game-width) / var(--num-keys)) - 
       (var(--border-width) * 2) -
       1px);
 
+  
   /*tile vars*/
-  --tile-margin: 2px;
-  --tile-width: calc((var(--game-width) / 6) - (4* var(--tile-margin)));
+  --tile-margin: 1px;
+  --tile-width: calc((var(--game-width) / 6) - (4* var(--tile-margin)) - var(--border-width));
 }
+
 
 body {
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: antiquewhite;
+  background-color: white;
+  overflow: hidden;
 }
 
 h1{
-  font-size: 70px;
+  font-size: 60px;
   letter-spacing: 10px;
-  margin: 10px;
+  margin: 0px;
 }
 
 #game{  
@@ -34,6 +37,7 @@ h1{
   flex-direction: column;
   text-align: center;
   width: var(--game-width);
+  
 }
 
 /*
@@ -41,6 +45,8 @@ h1{
 */
 #tiles{
   margin-bottom: 40px;
+  flex: 1;
+  flex-shrink: 1;
 }
 
 .row{
@@ -49,13 +55,11 @@ h1{
 }
 
 .tile{
-  border: 1px solid lightslategray;
+  border: 2px solid black;
   margin: var(--tile-margin);
   flex: 1 0 auto;
   max-width: var(--tile-width);
   height: auto;
-  transition: 0.3s;
-  perspective: 1000px;
 }
 
 .tile:before{
@@ -65,8 +69,9 @@ h1{
 }
 
 .note{
-  max-width: 100%;
-  max-height: 100%;
+
+  max-width: 90%;
+  max-height: 90%;
 }
 
 .correct{
@@ -97,9 +102,10 @@ h1{
 */
 #piano{
   flex: 1;
-  width: var(--kb-width);
   height: 200px;
+  width: var(--kb-width);
   position: relative;
+  padding-left:  calc(var(--tile-margin) * 1.5);
 }
 
 .key{
@@ -133,37 +139,33 @@ h1{
   margin-left: calc((-1 * (var(--key-width) / 2)) - var(--border-width));
 }
 
-.c{
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.b{
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
 /*
-### Clickable Element CSS
+### Clickable Elements
 */
-#go{
-  margin-top: 20px;
-  right: 20px;
-  bottom: 20px;
+#controls{
+  flex:1;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 1vw;
 }
 
 .clickable{
-  width: 100px;
-  height: 50px;
-  border-radius: 10px;
+  flex-direction: row-reverse;
+  width: 20vw;
+  height: 20px;
+  border-radius: 5px;
  
   cursor: pointer;
   user-select: none;
 
 
-  text-align: center;
   padding: 10px;
+  margin: 10px 0 0 10px;
 
   font-weight: bold;
-  background-color: orange;
+  background-color: grey;
+}
+
+.clickable p{
+  margin: 0;
 }

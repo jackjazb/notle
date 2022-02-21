@@ -3,7 +3,9 @@
 const fs = require('fs')
 
 const notes = ['a','a#','b','c','c#','d','d#','e','f','f#','g','g#']
-genSequences(800,6,'./seqlist.txt');
+
+//generate 800 sequences of length 6
+genSequences(800, 6 ,'./seqlist.json');
 
 //generates lots of random melodies and writes them to a file
 function genSequences(n, l, dest){
@@ -19,7 +21,8 @@ function genSequences(n, l, dest){
         }
         seqlist.push(seq);
     }
-    write(dest, JSON.stringify(seqlist));
+    file = 
+    write(dest, 'seqlist=' + seqlist);
 }
 
 //return a random note from 'notes'

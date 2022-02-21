@@ -64,8 +64,11 @@ block game
       .key.white.a(onclick="addNote(\'a\')")
       .key.black(onclick="addNote(\'a#')")
       .key.white.b(onclick="addNote(\'b\')")
-    #go.clickable(onclick="go()")
-      p= 'ENTER'
-    #del.clickable(onclick="del()") 
-      p= 'DEL'
+
+    #controls 
+      #del.clickable(onclick="del()") 
+        p= 'del'
+      #go.clickable(onclick="go()")
+        p= 'enter'
+
 
